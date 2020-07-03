@@ -1,0 +1,3 @@
+To freeze with PyInstaller:
+
+python -m PyInstaller Counter.py --onefile --windowed
