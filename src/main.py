@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import messagebox
 from os.path import join
 
+from pynput import keyboard
+
 from src.save_count import SaveCount
 
 
@@ -50,6 +52,9 @@ class MainApplication(tk.Frame):
             return
         for count_save in saves:
             self.lst_counts.insert(tk.END, count_save)
+
+        listener = keyboard.Listener(on_release=self.on_key_release)
+        listener.start()
 
     def count_up(self):
         # Save to entry, if it's the first one
@@ -134,6 +139,10 @@ class MainApplication(tk.Frame):
 
     def key_press(self, event):
         if event.char == " ":
+            self.count_up()
+
+    def on_key_release(self, key):
+        if key == keyboard.KeyCode.from_char("+"):
             self.count_up()
 
 
